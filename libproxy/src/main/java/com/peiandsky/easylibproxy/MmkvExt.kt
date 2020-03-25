@@ -5,55 +5,51 @@ import com.tencent.mmkv.MMKV
 
 //针对mmkv的扩展使用，可以替代SharedPreference，无关Context
 
-
-fun initMMKV(context: Context) {
-    MMKV.initialize(context)
-}
-
-
-fun containSpKey(key: String): Boolean {
-    return MMKV.defaultMMKV().containsKey(key)
-}
-
-fun saveSPString(key: String, value: String?) {
-    MMKV.defaultMMKV().putString(key, value)
-}
-
-fun getSPString(key: String, defaultValue: String?): String? {
-    return MMKV.defaultMMKV().getString(key, defaultValue)
-}
-
-fun saveSPInt(key: String, value: Int?) {
-    MMKV.defaultMMKV().putInt(key, value ?: Int.MAX_VALUE)
-}
-
-fun getSPInt(key: String, defaultValue: Int?): Int? {
-    val v = MMKV.defaultMMKV().getInt(key, defaultValue ?: Int.MAX_VALUE)
-    if (v == Int.MAX_VALUE) {
-        return null
+object KvExt {
+    fun init(context: Context) {
+        MMKV.initialize(context)
     }
-    return v
-}
 
-fun saveSPLong(key: String, value: Long?) {
-    MMKV.defaultMMKV().putLong(key, value ?: Long.MAX_VALUE)
-}
 
-fun getSPLong(key: String, defaultValue: Long?): Long? {
-    val v = MMKV.defaultMMKV().getLong(key, defaultValue ?: Long.MAX_VALUE)
-    if (v == Long.MAX_VALUE) {
-        return null
+    fun containKey(key: String): Boolean {
+        return MMKV.defaultMMKV().containsKey(key)
     }
-    return v
+
+    fun saveString(key: String, value: String?) {
+        MMKV.defaultMMKV().putString(key, value)
+    }
+
+    fun getString(key: String, defaultValue: String?): String? {
+        return MMKV.defaultMMKV().getString(key, defaultValue)
+    }
+
+    fun saveInt(key: String, value: Int?) {
+        MMKV.defaultMMKV().putInt(key, value ?: 0)
+    }
+
+    fun getInt(key: String, defaultValue: Int?): Int? {
+        return MMKV.defaultMMKV().getInt(key, defaultValue ?: 0)
+    }
+
+    fun saveLong(key: String, value: Long?) {
+        MMKV.defaultMMKV().putLong(key, value ?: 0)
+    }
+
+    fun getLong(key: String, defaultValue: Long?): Long? {
+        return MMKV.defaultMMKV().getLong(key, defaultValue ?: 0)
+    }
+
+    fun saveBoolean(key: String, value: Boolean) {
+        MMKV.defaultMMKV().putBoolean(key, value)
+    }
+
+    fun getBoolean(key: String, defaultValue: Boolean): Boolean {
+        return MMKV.defaultMMKV().getBoolean(key, defaultValue)
+    }
 }
 
-fun saveSPBoolean(key: String, value: Boolean) {
-    MMKV.defaultMMKV().putBoolean(key, value)
-}
 
-fun getSPBoolean(key: String, defaultValue: Boolean): Boolean {
-    return MMKV.defaultMMKV().getBoolean(key, defaultValue)
-}
+
 
 
 
